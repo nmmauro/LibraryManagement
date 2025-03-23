@@ -1,1 +1,32 @@
-<p>header works!</p>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">Library Management</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/books" routerLinkActive="active">Books</a>
+        </li>
+        <li class="nav-item" *ngIf="isLibrarian">
+          <a class="nav-link" routerLink="/books" [queryParams]="{action: 'add'}" routerLinkActive="active">Add Book</a>
+        </li>
+      </ul>
+      <div class="navbar-text me-2" *ngIf="isLoggedIn">
+        Welcome, {{ username }} | <span class="badge bg-secondary">{{ isLibrarian ? 'Librarian' : 'Customer' }}</span>
+      </div>
+      <ul class="navbar-nav">
+        <li class="nav-item" *ngIf="!isLoggedIn">
+          <a class="nav-link" routerLink="/login">Login</a>
+        </li>
+        <li class="nav-item" *ngIf="!isLoggedIn">
+          <a class="nav-link" routerLink="/register">Register</a>
+        </li>
+        <li class="nav-item" *ngIf="isLoggedIn">
+          <a class="nav-link" href="#" (click)="logout(); $event.preventDefault()">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
