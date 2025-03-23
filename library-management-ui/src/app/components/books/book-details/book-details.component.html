@@ -1,1 +1,147 @@
-<p>book-details works!</p>
+<div class="alert alert-danger" *ngIf="errorMessage">
+  {{ errorMessage }}
+</div>
+
+<div class="text-center my-5" *ngIf="isLoading">
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<div *ngIf="!isLoading && book">
+  <nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/books">Books</a></li>
+      <li class="breadcrumb-item active">{{ book.title }}</li>
+    </ol>
+  </nav>
+
+  <div class="alert alert-success" *ngIf="checkoutMessage">{{ checkoutMessage }}</div>
+  <div class="alert alert-success" *ngIf="returnMessage">{{ returnMessage }}</div>
+
+  <div class="card mb-4">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img [src]="book.coverImage" class="img-fluid rounded-start" [alt]="book.title">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start">
+            <h2 class="card-title">{{ book.title }}</h2>
+            <span class="badge rounded-pill" [ngClass]="book.isAvailable ? 'bg-success' : 'bg-secondary'">
+              {{ book.isAvailable ? 'Available' : 'Checked Out' }}
+            </span>
+          </div>
+          <h5 class="card-subtitle mb-3 text-muted">by {{ book.author }}</h5>
+          
+          <div class="mb-3">
+            <span class="badge bg-warning text-dark me-2">
+              {{ book.averageRating | number:'1.1-1' }} ★
+            </span>
+            <small class="text-muted">{{ book.reviewCount }} reviews</small>
+          </div>
+          
+          <p class="card-text">{{ book.description }}</p>
+          
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <p><strong>Publisher:</strong> {{ book.publisher }}</p>
+              <p><strong>Publication Date:</strong> {{ book.publicationDate | date }}</p>
+              <p><strong>Category:</strong> {{ book.category }}</p>
+            </div>
+            <div class="col-md-6">
+              <p><strong>ISBN:</strong> {{ book.isbn }}</p>
+              <p><strong>Page Count:</strong> {{ book.pageCount }}</p>
+              <p *ngIf="!book.isAvailable && book.currentCheckout">
+                <strong>Due Date:</strong> {{ book.currentCheckout.dueDate | date }}
+              </p>
+            </div>
+          </div>
+          
+          <div class="d-flex flex-wrap gap-2">
+            <button 
+              *ngIf="isCustomer && book.isAvailable" 
+              class="btn btn-success" 
+              (click)="checkoutBook()"
+            >
+              Checkout Book
+            </button>
+            
+            <button 
+              *ngIf="isLibrarian && !book.isAvailable" 
+              class="btn btn-primary" 
+              (click)="returnBook()"
+            >
+              Mark as Returned
+            </button>
+            
+            <button 
+              *ngIf="isLibrarian" 
+              class="btn btn-danger" 
+              (click)="deleteBook()"
+            >
+              Delete Book
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reviews Section -->
+  <div class="card mb-4">
+    <div class="card-header">
+      <h4>Reviews ({{ book.reviews.length }})</h4>
+    </div>
+    <div class="card-body">
+      <div *ngIf="book.reviews.length === 0" class="text-center py-3">
+        <p class="text-muted">No reviews yet. Be the first to review this book!</p>
+      </div>
+      
+      <div *ngFor="let review of book.reviews" class="border-bottom mb-3 pb-3">
+        <div class="d-flex justify-content-between">
+          <h5>
+            <span class="badge bg-warning text-dark me-2">{{ review.rating }} ★</span>
+            <span>{{ review.username }}</span>
+          </h5>
+          <small class="text-muted">{{ review.createdAt | date }}</small>
+        </div>
+        <p>{{ review.comment }}</p>
+      </div>
+      
+      <!-- Add Review Form -->
+      <div *ngIf="isCustomer" class="mt-4">
+        <h5>Write a Review</h5>
+        <div *ngIf="reviewSuccess" class="alert alert-success">
+          Your review has been submitted successfully!
+        </div>
+        <form (ngSubmit)="submitReview()">
+          <div class="mb-3">
+            <label for="rating" class="form-label">Rating</label>
+            <select class="form-select" id="rating" [(ngModel)]="newReview.rating" name="rating">
+              <option [value]="5">5 Stars - Excellent</option>
+              <option [value]="4">4 Stars - Very Good</option>
+              <option [value]="3">3 Stars - Good</option>
+              <option [value]="2">2 Stars - Fair</option>
+              <option [value]="1">1 Star - Poor</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="comment" class="form-label">Your Review</label>
+            <textarea 
+              class="form-control" 
+              id="comment" 
+              rows="3" 
+              [(ngModel)]="newReview.comment" 
+              name="comment"
+              required
+            ></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" [disabled]="!newReview.comment">
+            Submit Review
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
