@@ -361,3 +361,16 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Angular specific
+/library-management-ui/node_modules/
+/library-management-ui/dist/
+/library-management-ui/.angular/cache
+/library-management-ui/npm-debug.log
+/library-management-ui/yarn-error.log
+/library-management-ui/.sass-cache
+/library-management-ui/connect.lock
+/library-management-ui/coverage
+/library-management-ui/libpeerconnection.log
+/library-management-ui/testem.log
+/library-management-ui/typings
