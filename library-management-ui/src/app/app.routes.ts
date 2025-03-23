@@ -3,6 +3,7 @@ import { BookListComponent } from './components/books/book-list/book-list.compon
 import { BookDetailsComponent } from './components/books/book-details/book-details.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
+import { BookFormComponent } from './components/books/book-form/book-form.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/books', pathMatch: 'full' },

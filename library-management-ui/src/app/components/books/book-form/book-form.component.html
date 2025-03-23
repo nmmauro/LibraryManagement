@@ -1,1 +1,72 @@
-<p>book-form works!</p>
+<div class="card mb-4">
+  <div class="card-header">
+    <h4>Add New Book</h4>
+  </div>
+  <div class="card-body">
+    <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+    <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+    
+    <form (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" [(ngModel)]="book.title" name="title" required>
+          </div>
+          
+          <div class="mb-3">
+            <label for="author" class="form-label">Author</label>
+            <input type="text" class="form-control" id="author" [(ngModel)]="book.author" name="author" required>
+          </div>
+          
+          <div class="mb-3">
+            <label for="publisher" class="form-label">Publisher</label>
+            <input type="text" class="form-control" id="publisher" [(ngModel)]="book.publisher" name="publisher" required>
+          </div>
+          
+          <div class="mb-3">
+            <label for="publicationDate" class="form-label">Publication Date</label>
+            <input type="date" class="form-control" id="publicationDate" [(ngModel)]="book.publicationDate" name="publicationDate" required>
+          </div>
+          
+          <div class="mb-3">
+            <label for="coverImage" class="form-label">Cover Image URL</label>
+            <input type="text" class="form-control" id="coverImage" [(ngModel)]="book.coverImage" name="coverImage" required>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <select class="form-select" id="category" [(ngModel)]="book.category" name="category" required>
+              <option value="" disabled>Select a category</option>
+              <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+            </select>
+          </div>
+          
+          <div class="mb-3">
+            <label for="isbn" class="form-label">ISBN</label>
+            <input type="text" class="form-control" id="isbn" [(ngModel)]="book.isbn" name="isbn" required>
+          </div>
+          
+          <div class="mb-3">
+            <label for="pageCount" class="form-label">Page Count</label>
+            <input type="number" class="form-control" id="pageCount" [(ngModel)]="book.pageCount" name="pageCount" required min="1">
+          </div>
+          
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" rows="5" [(ngModel)]="book.description" name="description" required></textarea>
+          </div>
+        </div>
+      </div>
+      
+      <div class="text-end">
+        <button type="button" class="btn btn-secondary me-2" routerLink="/books">Cancel</button>
+        <button type="submit" class="btn btn-primary" [disabled]="isLoading">
+          {{ isLoading ? 'Adding...' : 'Add Book' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
