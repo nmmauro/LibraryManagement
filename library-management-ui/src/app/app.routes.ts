@@ -3,12 +3,12 @@ import { BookListComponent } from './components/books/book-list/book-list.compon
 import { BookDetailsComponent } from './components/books/book-details/book-details.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
-import { BookFormComponent } from './components/books/book-form/book-form.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/books', pathMatch: 'full' },
-  { path: 'books', component: BookListComponent },
-  { path: 'books/:id', component: BookDetailsComponent },
+  { path: 'books', component: BookListComponent, canActivate: [authGuard] },
+  { path: 'books/:id', component: BookDetailsComponent, canActivate: [authGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: '**', redirectTo: '/books' }
