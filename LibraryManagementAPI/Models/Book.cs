@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace LibraryManagementAPI.Models
+﻿namespace LibraryManagementAPI.Models
 {
     public class Book : EntityBase
     {

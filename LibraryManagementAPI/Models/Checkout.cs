@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace LibraryManagementAPI.Models
+﻿namespace LibraryManagementAPI.Models
 {
     public class Checkout : EntityBase
     {
