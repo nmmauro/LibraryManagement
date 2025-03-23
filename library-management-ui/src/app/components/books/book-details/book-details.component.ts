@@ -7,11 +7,12 @@ import { ReviewService } from '../../../services/review.service';
 import { AuthService } from '../../../services/auth.service';
 import { BookDetail } from '../../../models/book';
 import { Review } from '../../../models/review';
+import { BookFormComponent } from '../book-form/book-form.component';
 
 @Component({
   selector: 'app-book-details',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, BookFormComponent],
   templateUrl: './book-details.component.html',
   styleUrl: './book-details.component.css'
 })
@@ -25,6 +26,7 @@ export class BookDetailsComponent implements OnInit {
   reviewSuccess = false;
   checkoutMessage = '';
   returnMessage = '';
+  showEditForm = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -59,6 +61,10 @@ export class BookDetailsComponent implements OnInit {
         console.error('Error loading book:', error);
       }
     });
+  }
+
+  toggleEditForm(): void {
+    this.showEditForm = !this.showEditForm;
   }
 
   submitReview(): void {

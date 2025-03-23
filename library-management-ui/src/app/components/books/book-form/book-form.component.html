@@ -1,12 +1,18 @@
 <div class="card mb-4">
   <div class="card-header">
-    <h4>Add New Book</h4>
+    <h4>{{ isEditMode ? 'Edit Book' : 'Add New Book' }}</h4>
   </div>
   <div class="card-body">
     <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
     <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+
+    <div class="text-center my-5" *ngIf="isLoading">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
     
-    <form (ngSubmit)="onSubmit()">
+    <form (ngSubmit)="onSubmit()" *ngIf="!isLoading">
       <div class="row">
         <div class="col-md-6">
           <div class="mb-3">
@@ -64,7 +70,7 @@
       <div class="text-end">
         <button type="button" class="btn btn-secondary me-2" routerLink="/books">Cancel</button>
         <button type="submit" class="btn btn-primary" [disabled]="isLoading">
-          {{ isLoading ? 'Adding...' : 'Add Book' }}
+          {{ isLoading ? (isEditMode ? 'Updating...' : 'Adding...') : (isEditMode ? 'Update Book' : 'Add Book') }}
         </button>
       </div>
     </form>

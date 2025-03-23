@@ -8,6 +8,10 @@
   </div>
 </div>
 
+<div *ngIf="showEditForm && !isLoading && book">
+  <app-book-form [bookId]="book.id" [isEditMode]="true"></app-book-form>
+</div>
+
 <div *ngIf="!isLoading && book">
   <nav aria-label="breadcrumb" class="mb-4">
     <ol class="breadcrumb">
@@ -73,6 +77,14 @@
               (click)="returnBook()"
             >
               Mark as Returned
+            </button>
+
+            <button 
+              *ngIf="isLibrarian" 
+              class="btn btn-warning me-2" 
+              (click)="toggleEditForm()"
+            >
+              {{ showEditForm ? 'Cancel Edit' : 'Edit Book' }}
             </button>
             
             <button 
