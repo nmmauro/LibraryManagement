@@ -331,6 +331,7 @@ namespace LibraryManagementAPI.Controllers
 
             checkout.ReturnDate = DateTime.UtcNow;
             book.IsAvailable = true;
+            book.CurrentCheckout = null; // Clear the current checkout reference
 
             await _context.SaveChangesAsync();
 
