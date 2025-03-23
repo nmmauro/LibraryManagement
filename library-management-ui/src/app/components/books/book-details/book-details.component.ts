@@ -69,16 +69,35 @@ export class BookDetailsComponent implements OnInit {
 
   submitReview(): void {
     if (!this.book || !this.newReview.comment) return;
-
-    this.reviewService.addReview(this.book.id, this.newReview).subscribe({
-      next: () => {
+  
+    // Add logging to help debug
+    console.log('Submitting review:', this.newReview);
+    
+    // Ensure rating is a number, not a string (common issue with form inputs)
+    const reviewToSubmit = {
+      rating: Number(this.newReview.rating),
+      comment: this.newReview.comment
+    };
+  
+    this.reviewService.addReview(this.book.id, reviewToSubmit).subscribe({
+      next: (response) => {
+        console.log('Review submitted successfully:', response);
         this.reviewSuccess = true;
         setTimeout(() => this.reviewSuccess = false, 3000);
+        // Reset the form
         this.newReview = { rating: 5, comment: '' };
+        // Reload the book to get updated reviews
         this.loadBook(this.book!.id);
       },
       error: (error) => {
         console.error('Error submitting review:', error);
+        // Add more helpful error handling
+        if (error.status === 401) {
+          this.errorMessage = 'You must be logged in to submit a review.';
+        } else {
+          this.errorMessage = 'Failed to submit review. Please try again.';
+        }
+        setTimeout(() => this.errorMessage = '', 3000);
       }
     });
   }

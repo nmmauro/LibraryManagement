@@ -11,6 +11,7 @@ export class ReviewService {
   constructor(private http: HttpClient) { }
 
   addReview(bookId: number, review: Partial<Review>): Observable<Review> {
+    console.log(`Sending review to API: ${environment.apiUrl}/books/${bookId}/reviews`, review);
     return this.http.post<Review>(`${environment.apiUrl}/books/${bookId}/reviews`, review);
   }
 

@@ -131,11 +131,11 @@
           <div class="mb-3">
             <label for="rating" class="form-label">Rating</label>
             <select class="form-select" id="rating" [(ngModel)]="newReview.rating" name="rating">
-              <option [value]="5">5 Stars - Excellent</option>
-              <option [value]="4">4 Stars - Very Good</option>
-              <option [value]="3">3 Stars - Good</option>
-              <option [value]="2">2 Stars - Fair</option>
-              <option [value]="1">1 Star - Poor</option>
+              <option [ngValue]="5">5 Stars - Excellent</option>
+              <option [ngValue]="4">4 Stars - Very Good</option>
+              <option [ngValue]="3">3 Stars - Good</option>
+              <option [ngValue]="2">2 Stars - Fair</option>
+              <option [ngValue]="1">1 Star - Poor</option>
             </select>
           </div>
           <div class="mb-3">

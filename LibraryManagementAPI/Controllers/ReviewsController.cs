@@ -58,7 +58,13 @@ namespace LibraryManagementAPI.Controllers
                 return NotFound();
             }
 
+            // Fix: Get the userId from claims
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return BadRequest(new { message = "User ID could not be determined" });
+            }
 
             // Check if user already reviewed this book
             var existingReview = await _context.Reviews
@@ -96,7 +102,7 @@ namespace LibraryManagementAPI.Controllers
                 Rating = reviewDto.Rating,
                 Comment = reviewDto.Comment,
                 CreatedAt = DateTime.UtcNow,
-                Username = user.UserName
+                Username = user?.UserName ?? "Unknown"
             };
         }
     }
