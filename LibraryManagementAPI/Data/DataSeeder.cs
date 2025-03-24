@@ -92,12 +92,12 @@ namespace LibraryManagementAPI.Data
             // Placeholder image URLs (you can customize these)
             var coverImages = new[]
             {
-                "https://via.placeholder.com/300x450?text=Book+Cover",
-                "https://via.placeholder.com/300x450/0000FF/FFFFFF?text=Book+Cover",
-                "https://via.placeholder.com/300x450/FF0000/FFFFFF?text=Book+Cover",
-                "https://via.placeholder.com/300x450/00FF00/000000?text=Book+Cover",
-                "https://via.placeholder.com/300x450/FFFF00/000000?text=Book+Cover",
-                "https://via.placeholder.com/300x450/FF00FF/FFFFFF?text=Book+Cover"
+                "https://placehold.co/300x450/0000FF/FFFFFF?text=Book+Cover",
+                "https://placehold.co/300x450/FF0000/FFFFFF?text=Book+Cover",
+                "https://placehold.co/300x450/00FF00/000000?text=Book+Cover",
+                "https://placehold.co/300x450/FFFF00/000000?text=Book+Cover",
+                "https://placehold.co/300x450/FF00FF/FFFFFF?text=Book+Cover",
+                "https://placehold.co/300x450/000000/FFFFFF?text=Book+Cover"
             };
 
             var faker = new Faker<Book>()
